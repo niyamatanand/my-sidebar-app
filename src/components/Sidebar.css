@@ -1,0 +1,17 @@
+.sidebar {
+  width: 200px;
+  height: 100vh;
+  background: #f8f8f8;
+  padding: 20px;
+  position: fixed;
+}
+.link {
+  display: block;
+  margin: 10px 0;
+  text-decoration: none;
+  color: black;
+}
+.link.active {
+  font-weight: bold;
+  color: blue;
+}
