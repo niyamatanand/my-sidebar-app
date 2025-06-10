@@ -1,0 +1,39 @@
+.live-query-container {
+  padding: 20px;
+}
+
+.query-engine-buttons button,
+.button-group button,
+.result-buttons button {
+  margin: 10px 10px 10px 0;
+  padding: 10px 20px;
+  background-color: #6c63ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+textarea {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+input[type="text"] {
+  margin-top: 15px;
+  margin-right: 10px;
+  padding: 8px;
+  width: 250px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table th,
+table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}

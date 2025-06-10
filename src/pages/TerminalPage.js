@@ -1,8 +1,7 @@
-// src/pages/TerminalPage.js
-
 import React, { useEffect, useRef } from 'react';
 import { Terminal } from 'xterm';
 import 'xterm/css/xterm.css';
+import './TerminalPage.css'; // Make sure this file exists
 
 function TerminalPage() {
   const terminalRef = useRef(null);
@@ -17,10 +16,12 @@ function TerminalPage() {
     };
     term.prompt();
 
+    // Setup WebSocket connection
     socketRef.current = new WebSocket('ws://localhost:8080');
 
     socketRef.current.onopen = () => {
       term.writeln('< Connected to WebSocket server ✅');
+      term.prompt();
     };
 
     socketRef.current.onmessage = (event) => {
@@ -30,11 +31,13 @@ function TerminalPage() {
 
     let inputBuffer = '';
 
-    term.onData(data => {
+    term.onData((data) => {
       if (data === '\r') {
         socketRef.current.send(inputBuffer);
         inputBuffer = '';
+        term.write('\r\n');
       } else if (data === '\u007F') {
+        // Handle backspace
         if (inputBuffer.length > 0) {
           inputBuffer = inputBuffer.slice(0, -1);
           term.write('\b \b');
@@ -44,14 +47,12 @@ function TerminalPage() {
         term.write(data);
       }
     });
-
-    return () => {
-      socketRef.current.close();
-    };
   }, []);
 
   return (
-    <div style={{ height: '100vh', background: 'black' }} ref={terminalRef}></div>
+    <div className="terminal-wrapper">
+      <div ref={terminalRef}></div>
+    </div>
   );
 }
 

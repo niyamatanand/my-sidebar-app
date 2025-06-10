@@ -1,15 +1,31 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { FaTachometerAlt, FaDatabase, FaTerminal } from 'react-icons/fa';
 import './Sidebar.css';
 
-export default function Sidebar() {
+const Sidebar = () => {
   return (
     <div className="sidebar">
-      <h2>Base</h2>
-      <nav>
-        <NavLink to="/page1" className="link">Live Query</NavLink>
-        <NavLink to="/page2" className="link">Live Terminal</NavLink>
-      </nav>
+      <div className="sidebar-header">Base</div>
+      <ul className="sidebar-menu">
+        <li>
+          <NavLink to="/dashboard" className="link" activeclassname="active">
+            <FaTachometerAlt className="icon" /> Dashboard
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/live-query" className="link" activeclassname="active">
+            <FaDatabase className="icon" /> Live Query
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/live-terminal" className="link" activeclassname="active">
+            <FaTerminal className="icon" /> Live Terminal
+          </NavLink>
+        </li>
+      </ul>
     </div>
   );
-}
+};
+
+export default Sidebar;

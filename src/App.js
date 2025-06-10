@@ -1,19 +1,24 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Page1 from './pages/Page1';
-import Page2 from './pages/Page2';
-import TerminalPage from './pages/TerminalPage'; // ✅ Step 1: Add this line
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Sidebar from './components/Sidebar';
+import DashboardPage from './pages/DashboardPage';
+import LiveQueryPage from './pages/LiveQueryPage';
+import TerminalPage from './pages/TerminalPage';
+import './App.css';
 
 function App() {
   return (
     <Router>
-      <Routes>
-  <Route path="/" element={<Navigate to="/terminal" />} />
-  <Route path="/page1" element={<Page1 />} />
-  <Route path="/page2" element={<Page2 />} />
-  <Route path="/terminal" element={<TerminalPage />} />
-</Routes>
-
+      <div className="App">
+        <Sidebar />
+        <div className="main-content">
+          <Routes>
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/live-query" element={<LiveQueryPage />} />
+            <Route path="/live-terminal" element={<TerminalPage />} />
+          </Routes>
+        </div>
+      </div>
     </Router>
   );
 }
