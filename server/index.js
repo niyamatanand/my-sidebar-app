@@ -1,18 +1,26 @@
-const WebSocket = require('ws');
+const grpc = require('@grpc/grpc-js');
+const protoLoader = require('@grpc/proto-loader');
+const path = require('path');
 
-const wss = new WebSocket.Server({ port: 8080 });
+// Load proto
+const packageDef = protoLoader.loadSync(
+  path.join(__dirname, 'proto', 'echo.proto')
+);
+const grpcObject = grpc.loadPackageDefinition(packageDef);
+const echoPackage = grpcObject.echo;
 
-wss.on('connection', (ws) => {
-  console.log('Client connected ✅');
+// Create the server
+const server = new grpc.Server();
 
-  ws.on('message', (message) => {
-    console.log('Received:', message.toString());
+server.addService(echoPackage.EchoService.service, {
+  Echo: (call, callback) => {
+    const input = call.request.message;
+    console.log('📩 Received from client:', input);
+    callback(null, { message: `You said: ${input}` });
+  },
+});
 
-    const reversed = message.toString().split('').reverse().join('');
-    ws.send(reversed);
-  });
-
-  ws.on('close', () => {
-    console.log('Client disconnected ❌');
-  });
+server.bindAsync('localhost:50051', grpc.ServerCredentials.createInsecure(), () => {
+  console.log('✅ gRPC server running at http://localhost:50051');
+  server.start();
 });
