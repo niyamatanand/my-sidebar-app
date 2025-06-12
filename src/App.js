@@ -4,6 +4,7 @@ import Sidebar from './components/Sidebar';
 import DashboardPage from './pages/DashboardPage';
 import LiveQueryPage from './pages/LiveQueryPage';
 import TerminalPage from './pages/TerminalPage';
+import GrpcTest from './GrpcTest';  // <-- Import the new test component
 import './App.css';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/live-query" element={<LiveQueryPage />} />
             <Route path="/live-terminal" element={<TerminalPage />} />
+            <Route path="/grpc-test" element={<GrpcTest />} />  {/* <-- New route */}
           </Routes>
         </div>
       </div>
